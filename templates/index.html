@@ -1,0 +1,61 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+  <head>
+    <title>Gestión de Rifas</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-gray-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center">
+            <a href="/" class="text-white font-bold text-lg">Gestión de Rifas</a>
+          </div>
+          <div class="flex items-center space-x-4">
+            <form method="get" action="{% url 'page_principal' %}" class="flex items-center">
+              <select name="estado" class="rounded bg-gray-700 text-white py-1 px-2">
+                <option value="" selected>Filtro Rifas</option>
+                <option value="1" {% if request.GET.estado == '1' %}selected{% endif %}>Disponibles</option>
+                <option value="2" {% if request.GET.estado == '2' %}selected{% endif %}>Finalizadas</option>
+                <option value="3" {% if request.GET.estado == '3' %}selected{% endif %}>Anuladas</option>
+              </select>
+              <button type="submit" class="ml-2 bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded">
+                Filtrar
+              </button>
+            </form>
+            <a href="/admin/" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded">Admin</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow bg-gray-100 py-6">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {% if Rifas %}
+            {% for rifa in Rifas %}
+              {% include 'cardRifas.html' %}
+            {% endfor %}
+          {% else %}
+            <div class="col-span-full text-center text-gray-600">
+              No hay rifas actualmente.
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-center text-white py-4">
+      <p>&copy; Inacap 2024</p>
+    </footer>
+
+  </body>
+</html>
+

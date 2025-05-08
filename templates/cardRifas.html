@@ -1,0 +1,33 @@
+<div class="card mb-4" style="max-width: 100%;">
+    <img src="{{ rifa.imagen_logo_rifa.url }}" class="card-img-top" alt="..." style="object-fit: cover; height: 200px;">
+    <div class="card-body">
+      <p class='card-title'>Nombre: {{ rifa.nombre_rifa }}</p>
+      <p class='card-text'>{{ rifa.descripcion_rifa }}</p>
+      <p class='card-text'> 
+        Estado:
+        {% if rifa.estado_rifa == 'disponible' %}
+        <span class='text-success'>
+            {{ rifa.estado_rifa }}
+            <a class='btn btn-outline-secondary text-center m-4' role='button' href="{% url 'paginarifa' %}?id={{ rifa.id }}">Mas informacion</a>
+            <a href="{% url 'seleccionar_ganador' rifa.id %}" class="btn btn-primary">Seleccionar Ganador</a>
+        </span>
+        {% elif rifa.estado_rifa == 'finalizada' %}
+        <span class='text-danger'>
+            {{ rifa.estado_rifa }}
+            <a class='btn btn-outline-secondary text-center m-4' role='button' href="{% url 'finalizada' rifa.id %}">Mas informacion</a>
+        </span>
+        {% elif rifa.estado_rifa == 'anulada' %}
+        <span class='text-warning'>
+            {{ rifa.estado_rifa }}
+            <a class='btn btn-outline-secondary text-center m-4' role='button' href="{% url 'paginarifa' %}?id={{ rifa.id }}">Mas informacion</a>
+        </span>
+        {% elif rifa.estado_rifa == 'oculta' %}
+        <span class='text-info'>
+            {{ rifa.estado_rifa }}
+            <a class='btn btn-outline-secondary text-center m-4' role='button' href="{% url 'paginarifa' %}?id={{ rifa.id }}">Mas informacion</a>
+        </span>
+        {% endif %}
+      </p>      
+    </div>
+</div>
+
